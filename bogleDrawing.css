@@ -1,0 +1,139 @@
+.bogleDrawingMain{
+	display:	flex;
+	flex-direction:	column;
+	background:	#ccc;
+}
+
+.bogleDrawingTopSect {
+	order: 1;
+}
+
+.bogleDrawingTopToolbar {
+	display:		flex;
+	flex-flow:		row wrap;
+	align-items:	center;
+	padding:		3px;
+}
+
+.bogleDrawingToolGroup {
+	margin-left:	5px;
+	margin-right:	5px;
+	vertical-align:	middle;
+}
+
+.bogleDrawingBrushRanges {
+	display:	inline-block;
+	text-align:	right;
+	vertical-align:	middle;
+}
+
+.bogleDrawingBrushPreview {
+	display:	inline-block;
+	background:	url("transparentBG.png") repeat center #fff;
+	vertical-align:	middle;
+}
+
+.bogleDrawingImgButton {
+	cursor:	pointer;
+	padding:	2px;
+	border:		2px outset #d0d0d0;
+	background:	#d8d8d8;
+	vertical-align:	middle;
+}
+
+.bogleDrawingImgButtonSelected, .bogleDrawingImgButton:hover {
+	background:	#e0e0e0;
+}
+
+.bogleDrawingImgButtonSelected, .bogleDrawingImgButton:active {
+	border-style: inset;
+}
+
+.bogleDrawingMiddleSect {
+	order:			2;
+	display:		flex;
+	flex-direction:	row;
+}
+
+.bogleDrawingLayersOuterDiv, .bogleDrawingToolsOuterDiv {
+	margin:		5px;
+}
+
+.bogleDrawingLayersScrollingDiv, .bogleDrawingToolsScrollingDiv {
+	overflow-y:	auto;
+	height:		370px;
+	width:		166px;
+}
+
+.bogleDrawingLayersInnerDiv {
+	display:		flex;
+	flex-direction:	column-reverse;
+	justify-content:flex-end;
+}
+
+.bogleDrawingToolsInnerDiv {
+	display:		flex;
+	flex-direction:	column;
+	justify-content:flex-end;
+}
+
+.bogleDrawingMainCanvasDiv {
+	background:	url("transparentBG.png") repeat center #fff;
+	position:	relative;
+	width:		700px;
+	height:		394px;
+}
+
+.bogleDrawingMainCanvasScrollingDiv {
+	width:		700px;
+	height:		394px;
+	overflow:	auto;
+}
+
+.bogleDrawingMainCanvas {
+	cursor:		none;
+	position:	absolute;
+	top:		0;
+	left:		0;
+	background:	none;
+	z-index:	9999999999999999999999;
+}
+
+.bogleDrawingObjectCanvas {
+	cursor:		none;
+	position:	absolute;
+	top:		0;
+	left:		0;
+	background:	none;
+}
+
+.bogleDrawingMiniLayerDiv {
+	border:			#000 solid 3px;
+	padding-left:	2px;
+	padding-right:	2px;
+}
+
+.bogleDrawingLelectedLayer {
+	border:	#0f0 solid 3px;
+}
+
+.bogleDrawingLayerToolbar {
+	display:		flex;
+	flex-flow:		row wrap;
+	justify-content:space-between;
+}
+
+.bogleDrawingLayerPreviewCanvas{
+	height:		75px;
+	cursor:		pointer;
+	background:	url("transparentBG.png") repeat center #fff;
+}
+
+.bogleDrawingToolOptionDiv {
+	margin:		5px 0px;
+	text-align:	left;
+}
+
+.bogleDrawingCenter {
+	text-align:	center;
+}
