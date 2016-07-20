@@ -1,11 +1,11 @@
 // Author: Jason L. Bogle
 // Date: 7/12/2016
-// Last Updated: 7/12/2016
+// Last Updated: 7/20/2016
 // Description: An attempt at a basic drawing app using Canvas
-//		this defins actions and action history
+//		this defines actions and action history
 
 // The Action Manager
-function BogleDrawingActionManager (owner) {
+function CanvasPaintActionManager (owner) {
 	this.owner = owner;
 	this.history = new Array();
 	this.future = new Array();

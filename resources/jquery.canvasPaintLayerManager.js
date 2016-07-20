@@ -1,11 +1,11 @@
 // Author: Jason L. Bogle
 // Date: 6/1/2016
-// Last Updated: 7/14/2016
+// Last Updated: 7/20/2016
 // Description: An attempt at a basic drawing app using Canvas
-//		this defins layers
+//		this defines layers
 
 
-function BogleDrawingLayerManager(owner) {
+function CanvasPaintLayerManager(owner) {
 	var manager = this;
 	manager.owner = owner;
 	manager.layers = [];
@@ -69,59 +69,59 @@ function BogleDrawingLayerManager(owner) {
 			// end div for object canvases
 			// add layer div
 			lbase.miniLayerDiv = $("<div>")
-				.addClass("bogleDrawingMiniLayerDiv").css("order", lbase.order)
+				.addClass("canvasPaintMiniLayerDiv").css("order", lbase.order)
 				.click({layer: lbase}, manager.useLayerClicked);
 			manager.owner.layersInnerDiv.append(lbase.miniLayerDiv)
 				// display the id
 				lbase.miniLayerDiv.append($("<strong>").html("Layer id: " + lbase.id));
 				// add the mini toolbar
-				var miniLayerToolbar = $("<div>").addClass("bogleDrawingLayerToolbar");
+				var miniLayerToolbar = $("<div>").addClass("canvasPaintLayerToolbar");
 				lbase.miniLayerDiv.append(miniLayerToolbar);
 					// add visibility toggle button
-					lbase.visibilityToggleButton = $("<img>").attr({src: "openEye.png"})
-								.addClass("bogleDrawingImgButton").click(lbase.toggleShow);
+					lbase.visibilityToggleButton = $("<img>").attr({src: "resources/openEye.png"})
+								.addClass("canvasPaintImgButton").click(lbase.toggleShow);
 					miniLayerToolbar
 						.append($("<div>")
-							.addClass("bogleDrawingVisibilityToggleDiv").css("order", 0)
+							.addClass("canvasPaintVisibilityToggleDiv").css("order", 0)
 							.append(lbase.visibilityToggleButton));
 					//lbase.visibilityToggleButton.click(lbase.toggleShow);
 					// end visibility toggle
 					// add clear button
 					miniLayerToolbar
 						.append($("<span>")
-							.html("Clear").addClass("bogleDrawingImgButton").css("order", 1).click({layer: this}, lbase.clear));
+							.html("Clear").addClass("canvasPaintImgButton").css("order", 1).click({layer: this}, lbase.clear));
 					// end clear button
 					// add delete layer button
 					miniLayerToolbar
 						.append($("<div>")
-							.addClass("bogleDrawingImgButtonDiv").css("order", 2)
-							.append($("<img>").attr({src: "delete.png"})
-								.addClass("bogleDrawingImgButton").click({layer: this}, lbase.deleteLayer)));
+							.addClass("canvasPaintImgButtonDiv").css("order", 2)
+							.append($("<img>").attr({src: "resources/delete.png"})
+								.addClass("canvasPaintImgButton").click({layer: this}, lbase.deleteLayer)));
 					// end delete layer button
 					// add move layer up button
 					miniLayerToolbar
 						.append($("<div>")
-							.addClass("bogleDrawingImgButtonDiv").css("order", 3)
-							.append($("<img>").attr({src: "up.png"})
-								.addClass("bogleDrawingImgButton").click({layer: this}, lbase.moveUp)));
+							.addClass("canvasPaintImgButtonDiv").css("order", 3)
+							.append($("<img>").attr({src: "resources/up.png"})
+								.addClass("canvasPaintImgButton").click({layer: this}, lbase.moveUp)));
 					// end move layer up button
 					// add move layer down button
 					miniLayerToolbar
 						.append($("<div>")
-							.addClass("bogleDrawingImgButtonDiv").css("order", 4)
-							.append($("<img>").attr({src: "down.png"})
-								.addClass("bogleDrawingImgButton").click({layer: this}, lbase.moveDown)));
+							.addClass("canvasPaintImgButtonDiv").css("order", 4)
+							.append($("<img>").attr({src: "resources/down.png"})
+								.addClass("canvasPaintImgButton").click({layer: this}, lbase.moveDown)));
 					// end move layer down button
 					// add layer opacity slider
-					lbase.opacitySpan = $("<span>").html("100").addClass("bogleDrawingValueSpan");
+					lbase.opacitySpan = $("<span>").html("100").addClass("canvasPaintValueSpan");
 					lbase.opacitySlider = $("<input>").attr({
 						type: "range",
 						min: 0,
 						max: 100,
 						value: 100
-					}).addClass("bogleDrawingLayerOpacity").on("input change", lbase.opacityChange);
+					}).addClass("canvasPaintLayerOpacity").on("input change", lbase.opacityChange);
 					miniLayerToolbar.append($("<div>").html("Layer Opacity: ")
-						.addClass("bogleDrawingInputDiv").css("order", 5)
+						.addClass("canvasPaintInputDiv").css("order", 5)
 							.append(lbase.opacitySpan).append("%")
 							.append(lbase.opacitySlider));
 					// end layer opacity slider
@@ -130,7 +130,7 @@ function BogleDrawingLayerManager(owner) {
 				lbase.previewCanvas = $("<canvas>").attr({
 					height: manager.owner.mainContext.canvas.height,
 					width: manager.owner.mainContext.canvas.width
-				}).addClass("bogleDrawingLayerPreviewCanvas");
+				}).addClass("canvasPaintLayerPreviewCanvas");
 				lbase.miniLayerDiv.append(lbase.previewCanvas);
 				lbase.previewContext = lbase.previewCanvas[0].getContext("2d");
 				// end mini canvas (preview)
@@ -144,12 +144,12 @@ function BogleDrawingLayerManager(owner) {
 		lbase.objects = [];
 		
 		lbase.use = function() {
-			lbase.miniLayerDiv.addClass("bogleDrawingLelectedLayer");
+			lbase.miniLayerDiv.addClass("canvasPaintLelectedLayer");
 			manager.currLayer = lbase;
 		}
 		
 		lbase.dontUse = function() {
-			lbase.miniLayerDiv.removeClass("bogleDrawingLelectedLayer");
+			lbase.miniLayerDiv.removeClass("canvasPaintLelectedLayer");
 		}
 		
 		lbase.clear = function(e) {

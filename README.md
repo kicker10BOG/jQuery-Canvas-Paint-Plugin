@@ -1,9 +1,11 @@
-# jQuery Bogle Drawing Plugin
+# jQuery Canvas Paint Plugin
 
 ### Version 0.1.0
 
 A jQuery plugin that allows the user to add a basic paint application to any 
 webpage. 
+
+[JasonLBogle.com](http://jasonlbogle.com)
 
 [Demo](http://drawing.jasonlbogle.com/)
 
@@ -43,7 +45,7 @@ opacities.
 
 ## Dependencies
 
-This plugin has three dependencies, all of which are related. Together, they 
+This plugin has three dependencies other than jQuery, all of which are related. Together, they 
 enable the plugin's "export" functionality.
 
 1. FileSaver.js - https://github.com/eligrey/FileSaver.js 

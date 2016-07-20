@@ -1,10 +1,10 @@
 // Author: Jason L. Bogle
 // Date: 7/12/2016
-// Last Updated: 7/12/2016
+// Last Updated: 7/20/2016
 // Description: An attempt at a basic drawing app using Canvas
-//		this defins tools
+//		this defines tools
 
-function BogleDrawingToolManager(owner) {
+function CanvasPaintToolManager(owner) {
 	var base = this;
 	base.owner = owner;
 	base.currTool;
@@ -91,17 +91,17 @@ function BogleDrawingToolManager(owner) {
 		select : function(data) {
 			var pBase = base.paint;
 			// stroke color
-			var strokeColorDiv = $("<div>").addClass("bogleDrawingToolOptionDiv").css("order", 0);
+			var strokeColorDiv = $("<div>").addClass("canvasPaintToolOptionDiv").css("order", 0);
 			base.owner.innerToolDiv.append(strokeColorDiv
 				.append($("<label>").html("Stroke Color: ")));
 			pBase.strokeColor = $("<input>").attr({
 				type: "color",
 				value: base.strokeColor
-			}).addClass("bogleDrawingStrokeOption").on("input change", pBase.brushAdjusted);
+			}).addClass("canvasPaintStrokeOption").on("input change", pBase.brushAdjusted);
 			strokeColorDiv.append(pBase.strokeColor);
 			// end stroke color selector
 			// range inputs
-			var brushRanges = $("<div>").css("Order", 1).addClass("bogleDrawingToolOptionDiv");
+			var brushRanges = $("<div>").css("Order", 1).addClass("canvasPaintToolOptionDiv");
 			base.owner.innerToolDiv.append(brushRanges);
 				// stroke width
 				brushRanges.append($("<label>").html("Stroke Width: "));
@@ -112,7 +112,7 @@ function BogleDrawingToolManager(owner) {
 					max: 150,
 					min: 0,
 					value: base.strokeWidth
-				}).addClass("bogleDrawingSlider");
+				}).addClass("canvasPaintSlider");
 				brushRanges.append(pBase.strokeWidth);
 				pBase.strokeWidth.on("input change", pBase.brushAdjusted);
 				brushRanges.append("<br>")
@@ -126,7 +126,7 @@ function BogleDrawingToolManager(owner) {
 					max: 100,
 					min: 0,
 					value: base.strokeOpacity
-				}).addClass("bogleDrawingSlider");
+				}).addClass("canvasPaintSlider");
 				brushRanges.append(pBase.strokeOpacity);
 				pBase.strokeOpacity.on("input change", pBase.brushAdjusted);
 				// end stroke opacity slider
@@ -135,13 +135,13 @@ function BogleDrawingToolManager(owner) {
 			pBase.brushToolPreview = $("<canvas>").attr({
 				height: 150,
 				width: 150
-			}).addClass("bogleDrawingBrushPreview");
-			base.owner.innerToolDiv.append($("<div>").addClass("bogleDrawingToolOptionDiv bogleDrawingCenter")
+			}).addClass("canvasPaintBrushPreview");
+			base.owner.innerToolDiv.append($("<div>").addClass("canvasPaintToolOptionDiv canvasPaintCenter")
 											.css("order", 3).append(pBase.brushToolPreview));
 			pBase.brushAdjusted();
 			// end brush preview
 			
-			base.owner.paintButton.addClass("bogleDrawingImgButtonSelected");
+			base.owner.paintButton.addClass("canvasPaintImgButtonSelected");
 			base.owner.toolNameSpan.html("Paint Brush");
 		},
 		

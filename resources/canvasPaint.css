@@ -1,39 +1,39 @@
-.bogleDrawingMain{
+.canvasPaintMain{
 	display:	flex;
 	flex-direction:	column;
 	background:	#ccc;
 }
 
-.bogleDrawingTopSect {
+.canvasPaintTopSect {
 	order: 1;
 }
 
-.bogleDrawingTopToolbar {
+.canvasPaintTopToolbar {
 	display:		flex;
 	flex-flow:		row wrap;
 	align-items:	center;
 	padding:		3px;
 }
 
-.bogleDrawingToolGroup {
+.canvasPaintToolGroup {
 	margin-left:	5px;
 	margin-right:	5px;
 	vertical-align:	middle;
 }
 
-.bogleDrawingBrushRanges {
+.canvasPaintBrushRanges {
 	display:	inline-block;
 	text-align:	right;
 	vertical-align:	middle;
 }
 
-.bogleDrawingBrushPreview {
+.canvasPaintBrushPreview {
 	display:	inline-block;
 	background:	url("transparentBG.png") repeat center #fff;
 	vertical-align:	middle;
 }
 
-.bogleDrawingImgButton {
+.canvasPaintImgButton {
 	cursor:	pointer;
 	padding:	2px;
 	border:		2px outset #d0d0d0;
@@ -41,56 +41,56 @@
 	vertical-align:	middle;
 }
 
-.bogleDrawingImgButtonSelected, .bogleDrawingImgButton:hover {
+.canvasPaintImgButtonSelected, .canvasPaintImgButton:hover {
 	background:	#e0e0e0;
 }
 
-.bogleDrawingImgButtonSelected, .bogleDrawingImgButton:active {
+.canvasPaintImgButtonSelected, .canvasPaintImgButton:active {
 	border-style: inset;
 }
 
-.bogleDrawingMiddleSect {
+.canvasPaintMiddleSect {
 	order:			2;
 	display:		flex;
 	flex-direction:	row;
 }
 
-.bogleDrawingLayersOuterDiv, .bogleDrawingToolsOuterDiv {
+.canvasPaintLayersOuterDiv, .canvasPaintToolsOuterDiv {
 	margin:		5px;
 }
 
-.bogleDrawingLayersScrollingDiv, .bogleDrawingToolsScrollingDiv {
+.canvasPaintLayersScrollingDiv, .canvasPaintToolsScrollingDiv {
 	overflow-y:	auto;
 	height:		370px;
 	width:		166px;
 }
 
-.bogleDrawingLayersInnerDiv {
+.canvasPaintLayersInnerDiv {
 	display:		flex;
 	flex-direction:	column-reverse;
 	justify-content:flex-end;
 }
 
-.bogleDrawingToolsInnerDiv {
+.canvasPaintToolsInnerDiv {
 	display:		flex;
 	flex-direction:	column;
 	justify-content:flex-end;
 }
 
-.bogleDrawingMainCanvasDiv {
+.canvasPaintMainCanvasDiv {
 	background:	url("transparentBG.png") repeat center #fff;
 	position:	relative;
 	width:		700px;
 	height:		394px;
 }
 
-.bogleDrawingMainCanvasScrollingDiv {
+.canvasPaintMainCanvasScrollingDiv {
 	width:		700px;
 	height:		394px;
 	overflow:	auto;
 }
 
-.bogleDrawingMainCanvas {
+.canvasPaintMainCanvas {
 	cursor:		none;
 	position:	absolute;
 	top:		0;
@@ -99,7 +99,7 @@
 	z-index:	9999999999999999999999;
 }
 
-.bogleDrawingObjectCanvas {
+.canvasPaintObjectCanvas {
 	cursor:		none;
 	position:	absolute;
 	top:		0;
@@ -107,33 +107,33 @@
 	background:	none;
 }
 
-.bogleDrawingMiniLayerDiv {
+.canvasPaintMiniLayerDiv {
 	border:			#000 solid 3px;
 	padding-left:	2px;
 	padding-right:	2px;
 }
 
-.bogleDrawingLelectedLayer {
+.canvasPaintLelectedLayer {
 	border:	#0f0 solid 3px;
 }
 
-.bogleDrawingLayerToolbar {
+.canvasPaintLayerToolbar {
 	display:		flex;
 	flex-flow:		row wrap;
 	justify-content:space-between;
 }
 
-.bogleDrawingLayerPreviewCanvas{
+.canvasPaintLayerPreviewCanvas{
 	height:		75px;
 	cursor:		pointer;
 	background:	url("transparentBG.png") repeat center #fff;
 }
 
-.bogleDrawingToolOptionDiv {
+.canvasPaintToolOptionDiv {
 	margin:		5px 0px;
 	text-align:	left;
 }
 
-.bogleDrawingCenter {
+.canvasPaintCenter {
 	text-align:	center;
 }

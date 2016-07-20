@@ -1,10 +1,10 @@
 // Author: Jason L. Bogle
 // Date: 7/14/2016
-// Last Updated: 7/16/2016
+// Last Updated: 7/20/2016
 // Description: An attempt at a basic drawing app using Canvas
-//		this defins objects
+//		this defines objects
 
-function BogleDrawingObjectFactory(owner) {
+function CanvasPaintObjectFactory(owner) {
 	var base = this;
 	base.owner = owner;
 	
@@ -19,7 +19,7 @@ function BogleDrawingObjectFactory(owner) {
 			obj.bigCanvas = $("<canvas>").attr({
 				height: obj.layer.manager.owner.options.canvHeight,
 				width: obj.layer.manager.owner.options.canvWidth
-			}).addClass("bogleDrawingObjectCanvas").css("z-index", obj.layer.order*1000 + obj.order);
+			}).addClass("canvasPaintObjectCanvas").css("z-index", obj.layer.order*1000 + obj.order);
 			obj.layer.manager.owner.canvasDiv.append(obj.bigCanvas);
 			obj.bigContext = obj.bigCanvas[0].getContext("2d");
 		}

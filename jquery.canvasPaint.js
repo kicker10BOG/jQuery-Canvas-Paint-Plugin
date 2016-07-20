@@ -1,36 +1,23 @@
+// Author: Jason L. Bogle
+// Date: 6/1/2016
+// Last Updated: 7/20/2016
+// Description: An attempt at a basic drawing app using Canvas
+//		this defines the jQuery plugin
 
-//console.log("jquery.bogleDrawing.js");
+//console.log("jquery.canvasPaint.js");
 
 ;(function($, window, document) {
 	//console.log("inside");
 	if (!$.boglePlugin) {
 		$.boglePlugin = {};
 	};
-	/*
-	var requredScripts = [
-		"filesaver/FileSaver.js",
-		"blob/Blob.js",
-		"canvasToBlob/canvas-toBlob.js",
-		"drawingObjects.js",
-		"layers.js",
-		"tools.js",
-		"actions.js"
-	];
-	requredScripts.forEach(function(sName){
-		$.getScript(sName)
-			.done(function(script, textStatus) {
-				console.log("loaded " + sName);
-			})
-			.fail(function(script, textStastus) {
-				console.log("faile to load " + sName);
-			});
-	}); // */
+	
 	var cssLink = $("<link>");
 	$("head").append(cssLink);
 	cssLink.attr({
 		rel: "stylesheet",
 		type: "text/css",
-		href: "bogleDrawing.css"
+		href: "resources/canvasPaint.css"
 	});
 	
 	$.boglePlugin.drawing = function(el, functionParam, options) {
@@ -46,102 +33,102 @@
 			
 			
 			base.mousePosition = {};
-			base.AM = new BogleDrawingActionManager(base);
-			base.TM = new BogleDrawingToolManager(base);
-			base.OF = new BogleDrawingObjectFactory(base);
-			base.LM = new BogleDrawingLayerManager(base);
+			base.AM = new CanvasPaintActionManager(base);
+			base.TM = new CanvasPaintToolManager(base);
+			base.OF = new CanvasPaintObjectFactory(base);
+			base.LM = new CanvasPaintLayerManager(base);
 			//console.log(base);
 			
 			// generate html
 			// main container section
-			var mainSect = $("<section>").addClass("bogleDrawingMain");
+			var mainSect = $("<section>").addClass("canvasPaintMain");
 			base.$el.append(mainSect);
 				// top section
-				var topSect = $("<section>").addClass("bogleDrawingTopSect");
+				var topSect = $("<section>").addClass("canvasPaintTopSect");
 				mainSect.append(topSect);
 					// top toolbar
-					var topToolbar = $("<div>").addClass("bogleDrawingTopToolbar");
+					var topToolbar = $("<div>").addClass("canvasPaintTopToolbar");
 					topSect.append(topToolbar);
 						// export tool group
-						var exportToolGroup = $("<div>").addClass("bogleDrawingToolGroup");
+						var exportToolGroup = $("<div>").addClass("canvasPaintToolGroup");
 						topToolbar.append(exportToolGroup);
 							// export label and name input
 							exportToolGroup.append($("<label>").html("Export as:"));
 							base.exportFilename = $("<input>").attr({
 								type: "text",
 								placeholder: "drawing"
-							}).addClass("bogleDrawingExportFilename");
+							}).addClass("canvasPaintExportFilename");
 							exportToolGroup.append(base.exportFilename);
 							exportToolGroup.append(".png");
 							// end export filename
 							// export button
-							base.exportButton = $("<span>").html("Export").addClass("bogleDrawingImgButton").click(base.exportDrawing);
+							base.exportButton = $("<span>").html("Export").addClass("canvasPaintImgButton").click(base.exportDrawing);
 							exportToolGroup.append(base.exportButton);
 							// end export button
 						// end export tools
 						// history tool group
-						var historyToolGroup = $("<div>").addClass("bogleDrawingToolGroup");
+						var historyToolGroup = $("<div>").addClass("canvasPaintToolGroup");
 						topToolbar.append(historyToolGroup);
 							// undo button
 							base.undoButton = $("<img>").attr({
-								src: "undo.png"
-							}).addClass("bogleDrawingImgButton").click(base.undo);
+								src: "resources/undo.png"
+							}).addClass("canvasPaintImgButton").click(base.undo);
 							historyToolGroup.append(base.undoButton);
 							historyToolGroup.append(" ");
 							// end undo button
 							// redo button
 							base.undoButton = $("<img>").attr({
-								src: "redo.png"
-							}).addClass("bogleDrawingImgButton").click(base.redo);
+								src: "resources/redo.png"
+							}).addClass("canvasPaintImgButton").click(base.redo);
 							historyToolGroup.append(base.undoButton);
 							// end redo button
 						// end hiustory tools
 						// drawing tool 
-						var drawingToolsGroup = $("<div>").addClass("bogleDrawingToolGroup");
+						var drawingToolsGroup = $("<div>").addClass("canvasPaintToolGroup");
 							// paint brush icon button
 							base.paintButton = $("<img>").attr({
-								src: "brush.png", 
-							}).addClass("bogleDrawingImgButton").click({tool:"paint"}, base.selectTool);
+								src: "resources/brush.png", 
+							}).addClass("canvasPaintImgButton").click({tool:"paint"}, base.selectTool);
 							topToolbar.append(drawingToolsGroup.append(base.paintButton));
 							// end paint brush icon button
 						// end drawing tools
 					// end top toolbar
 				// end top section
 				// middle section
-				var middleSect = $("<section>").addClass("bogleDrawingMiddleSect");
+				var middleSect = $("<section>").addClass("canvasPaintMiddleSect");
 				mainSect.append(middleSect);
 					// layers outer div
-					var layersOuterDiv = $("<div>").addClass("bogleDrawingLayersOuterDiv").css("order", 0);
+					var layersOuterDiv = $("<div>").addClass("canvasPaintLayersOuterDiv").css("order", 0);
 					middleSect.append(layersOuterDiv);
 						// layers heading
 						layersOuterDiv.append($("<strong>").html("Layers "));
 						// add new layer button
 						base.addNewLayerButton = $("<img>").attr({
-							src: "add.png"
-						}).addClass("bogleDrawingImgButton");
+							src: "resources/add.png"
+						}).addClass("canvasPaintImgButton");
 						layersOuterDiv.append(base.addNewLayerButton);
 						base.addNewLayerButton.click(base.addNewLayer)
 						// end add new layer button
 						// layers scrolling div
-						var layersScrollingDiv = $("<div>").addClass("bogleDrawingLayersScrollingDiv");
+						var layersScrollingDiv = $("<div>").addClass("canvasPaintLayersScrollingDiv");
 						layersOuterDiv.append(layersScrollingDiv);
 							// layers inner div
-							base.layersInnerDiv = $("<div>").addClass("bogleDrawingLayersInnerDiv");
+							base.layersInnerDiv = $("<div>").addClass("canvasPaintLayersInnerDiv");
 							layersScrollingDiv.append(base.layersInnerDiv);
 							// end layers inner div
 						// end layers scrolling div
 					// end layers outer div
 					// canvas div
-					base.canvasDiv = $("<div>").addClass("bogleDrawingMainCanvasDiv").css("order", 1);
-					base.canvasScrollingDiv = $("<div>").addClass("bogleDrawingMainCanvasScrollingDiv");
-					base.canvasInnerDiv = $("<div>").addClass("bogleDrawingMainCanvasInnerDiv");
+					base.canvasDiv = $("<div>").addClass("canvasPaintMainCanvasDiv").css("order", 1);
+					base.canvasScrollingDiv = $("<div>").addClass("canvasPaintMainCanvasScrollingDiv");
+					base.canvasInnerDiv = $("<div>").addClass("canvasPaintMainCanvasInnerDiv");
 					base.canvasDiv.append(base.canvasScrollingDiv.append(base.canvasInnerDiv));
 					middleSect.append(base.canvasDiv);
 						// main canvas
 						base.mainCanvas = $("<canvas>").attr({
 							height: base.options.canvHeight,
 							width: base.options.canvWidth
-						}).addClass("bogleDrawingMainCanvas");
+						}).addClass("canvasPaintMainCanvas");
 						base.canvasInnerDiv.append(base.mainCanvas);
 						base.mainContext = base.mainCanvas[0].getContext("2d");
 							// mouse and touch events
@@ -152,12 +139,12 @@
 						// end main canvas
 					// end canvas div
 					// tool settings div
-						var outerToolDiv = $("<div>").addClass("bogleDrawingToolsOuterDiv").css("order", 2);
+						var outerToolDiv = $("<div>").addClass("canvasPaintToolsOuterDiv").css("order", 2);
 						middleSect.append(outerToolDiv);
 						base.toolNameSpan = $("<span>");
 						outerToolDiv.append(base.toolNameSpan).append(" settings");
-						base.scrollingToolDiv = $("<div>").addClass("bogleDrawingToolsScrollingDiv");
-						base.innerToolDiv = $("<div>").addClass("bogleDrawingToolsInnerDiv");
+						base.scrollingToolDiv = $("<div>").addClass("canvasPaintToolsScrollingDiv");
+						base.innerToolDiv = $("<div>").addClass("canvasPaintToolsInnerDiv");
 						outerToolDiv.append(base.scrollingToolDiv.append(base.innerToolDiv));
 					// end tool settings div
 				// end middle section
@@ -330,14 +317,14 @@
 	
 	$.fn.boglePlugin_drawing = function(functionParam, options) {
 		return this.each(function() {
-			//console.log("found .bogleDrawing element");
+			//console.log("found .canvasPaint element");
 			//console.log(this);
 			(new $.boglePlugin.drawing(this, functionParam, options));
 		});
 	};
 	
 	$(window).ready(function() {
-		$(".bogleDrawing").boglePlugin_drawing();
-			//console.log("found .bogleDrawing element?");
+		$(".canvasPaint").boglePlugin_drawing();
+			//console.log("found .canvasPaint element?");
 	})
 })(jQuery);
