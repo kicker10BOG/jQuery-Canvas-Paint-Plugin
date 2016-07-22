@@ -16,8 +16,6 @@
 }
 
 .canvasPaintToolGroup {
-	display:		flex;
-	flex-flow:		row wrap;
 	margin-left:	5px;
 	margin-right:	5px;
 	vertical-align:	middle;

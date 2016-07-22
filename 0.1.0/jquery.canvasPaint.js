@@ -1,7 +1,6 @@
 // Author: Jason L. Bogle
 // Date: 6/1/2016
-// Last Updated: 7/21/2016
-// Version: 0.2.0
+// Last Updated: 7/20/2016
 // Description: An attempt at a basic drawing app using Canvas
 //		this defines the jQuery plugin
 
@@ -45,8 +44,55 @@
 			var mainSect = $("<section>").addClass("canvasPaintMain");
 			base.$el.append(mainSect);
 				// top section
-				base.topSect = $("<section>").addClass("canvasPaintTopSect");
-				mainSect.append(base.topSect);
+				var topSect = $("<section>").addClass("canvasPaintTopSect");
+				mainSect.append(topSect);
+					// top toolbar
+					var topToolbar = $("<div>").addClass("canvasPaintTopToolbar");
+					topSect.append(topToolbar);
+						// export tool group
+						var exportToolGroup = $("<div>").addClass("canvasPaintToolGroup");
+						topToolbar.append(exportToolGroup);
+							// export label and name input
+							exportToolGroup.append($("<label>").html("Export as:"));
+							base.exportFilename = $("<input>").attr({
+								type: "text",
+								placeholder: "drawing"
+							}).addClass("canvasPaintExportFilename");
+							exportToolGroup.append(base.exportFilename);
+							exportToolGroup.append(".png");
+							// end export filename
+							// export button
+							base.exportButton = $("<span>").html("Export").addClass("canvasPaintImgButton").click(base.exportDrawing);
+							exportToolGroup.append(base.exportButton);
+							// end export button
+						// end export tools
+						// history tool group
+						var historyToolGroup = $("<div>").addClass("canvasPaintToolGroup");
+						topToolbar.append(historyToolGroup);
+							// undo button
+							base.undoButton = $("<img>").attr({
+								src: "resources/undo.png"
+							}).addClass("canvasPaintImgButton").click(base.undo);
+							historyToolGroup.append(base.undoButton);
+							historyToolGroup.append(" ");
+							// end undo button
+							// redo button
+							base.undoButton = $("<img>").attr({
+								src: "resources/redo.png"
+							}).addClass("canvasPaintImgButton").click(base.redo);
+							historyToolGroup.append(base.undoButton);
+							// end redo button
+						// end hiustory tools
+						// drawing tool 
+						var drawingToolsGroup = $("<div>").addClass("canvasPaintToolGroup");
+							// paint brush icon button
+							base.paintButton = $("<img>").attr({
+								src: "resources/brush.png", 
+							}).addClass("canvasPaintImgButton").click({tool:"paint"}, base.selectTool);
+							topToolbar.append(drawingToolsGroup.append(base.paintButton));
+							// end paint brush icon button
+						// end drawing tools
+					// end top toolbar
 				// end top section
 				// middle section
 				var middleSect = $("<section>").addClass("canvasPaintMiddleSect");
@@ -93,23 +139,23 @@
 						// end main canvas
 					// end canvas div
 					// tool settings div
-						base.outerToolDiv = $("<div>").addClass("canvasPaintToolsOuterDiv").css("order", 2);
-						middleSect.append(base.outerToolDiv);
+						var outerToolDiv = $("<div>").addClass("canvasPaintToolsOuterDiv").css("order", 2);
+						middleSect.append(outerToolDiv);
+						base.toolNameSpan = $("<span>");
+						outerToolDiv.append(base.toolNameSpan).append(" settings");
+						base.scrollingToolDiv = $("<div>").addClass("canvasPaintToolsScrollingDiv");
+						base.innerToolDiv = $("<div>").addClass("canvasPaintToolsInnerDiv");
+						outerToolDiv.append(base.scrollingToolDiv.append(base.innerToolDiv));
 					// end tool settings div
 				// end middle section
 				// bottom section
 					// future plans
 				// end bottom section
 				
-				base.LM.blankData = base.mainCanvas[0].toDataURL();
-				
 				$("body").keydown(base.keyDown);
 				base.addNewLayer();
-				base.TM.setUpTools();
-				// remove first action from history
-				base.AM.history.pop(); 
-				base.LM.layers[0].actions.pop();
-				console.log("Canvas Paint: Ready to draw!");
+				base.TM.setTool(base.options.currTool);
+				console.log("Bogle Drawing: Ready to draw!");
 		};
 		
 		base.addNewLayer = function() {
@@ -125,7 +171,34 @@
 			base.AM.redo();
 			//console.log(base.LM.layers);
 		};
-	
+		
+		base.keyDown = function(e) {
+			e = e || window.event;
+			//console.log(e);
+			// ctrl+z
+			if ((e.keyCode == 90 || e.which == 90) && e.ctrlKey) {
+				base.undo();
+			}
+			if ((e.keyCode == 89 || e.which == 89) && e.ctrlKey) {
+				base.redo();
+			}
+		}
+		
+		base.exportDrawing = function(e) {
+			base.mainContext.clearRect(0, 0, base.mainContext.canvas.width, base.mainContext.canvas.height);
+			base.mainContext.globalAlpha = 1;
+			base.LM.layers.forEach(function(l) {
+				l.drawOnGlobal();
+			});
+			base.mainCanvas[0].toBlobHD(function(blob) {
+				saveAs(
+					  blob
+					, (base.exportFilename.val() || base.exportFilename.attr("placeholder")) + ".png"
+				);
+			}, "image/png");
+			base.mainContext.clearRect(0, 0, base.mainContext.canvas.width, base.mainContext.canvas.height);
+		}
+				
 		base.getMousePosition = function(e) {
 			//console.log(e);
 			if (e.type == "mouseleave") {
@@ -196,9 +269,7 @@
 				dragging: dragging
 			}; //*/
 			//console.log(data);
-			if (base.LM.currLayer.canvasPaint) {
-				base.TM.currTool.doAction(data);
-			}
+			base.TM.currTool.doAction(data);
 			base.redrawBrush();
 			//*/
 		};

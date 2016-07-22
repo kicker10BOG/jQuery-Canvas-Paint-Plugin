@@ -1,7 +1,6 @@
 // Author: Jason L. Bogle
 // Date: 6/1/2016
-// Last Updated: 7/21/2016
-// Version: 0.2.0
+// Last Updated: 7/20/2016
 // Description: An attempt at a basic drawing app using Canvas
 //		this defines layers
 
@@ -10,7 +9,6 @@ function CanvasPaintLayerManager(owner) {
 	var manager = this;
 	manager.owner = owner;
 	manager.layers = [];
-	manager.blankData;
 	
 	manager.addNewLayer = function() {
 		manager.owner.TM.addLayer.doAction({manager: manager});
@@ -51,7 +49,6 @@ function CanvasPaintLayerManager(owner) {
 		lbase.id = 0;
 		lbase.order = 0;
 		lbase.opacity = 1;
-		lbase.erased = [];
 		manager.layers.forEach(function(l){
 			lbase.id = Math.max(lbase.id, l.id);
 			lbase.order = Math.max(lbase.order, l.order);
