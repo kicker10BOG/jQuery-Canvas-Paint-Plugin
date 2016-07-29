@@ -1,6 +1,6 @@
 # jQuery Canvas Paint Plugin
 
-### Version 0.2.0
+### Version 0.3.0
 
 A jQuery plugin that allows the user to add a basic paint application to any 
 webpage. 
